@@ -43,7 +43,9 @@ void delay (int i,int file_desc){
 }
 
 int main()
-{int i,j;
+{
+	int op,ms;
+	int i,j;
     	int file_desc, ret_val=0;
 	char a;
 	int d,t=0,readbuf[2];
@@ -59,12 +61,24 @@ int main()
 	else{  	
 		printf("Openning File: %s\n", DEVICE_FILE_NAME);
     	}
+menu:
+	printf("Enter an option:\n");
+	printf("1. Delay\n");
+	printf("2. Read file\n");
+	printf("3. Exit\n");
+	scanf("%d",&op);
+if(op==1){
 /*Employing delay of 1.5 second*/
+	printf("Enter delay in miliseconds:\n");
+	scanf("%d",&ms);
 	printf("Start delay\n");
-	delay(1500,file_desc);
+	delay(ms,file_desc);
 	printf("Stop delay\n");
-/*reading file 100 times*/
-for(int k =0;k<100;k++){
+goto menu;
+}
+else if(op==2){
+/*reading file*/
+//for(int k =0;k<100;k++){
 	ret_val = read(file_desc,readbuf, 1);
 	if (ret_val < 0) {
         	printf("Can't read device file: %s\n", DEVICE_FILE_NAME);
@@ -73,8 +87,12 @@ for(int k =0;k<100;k++){
 	else{  	
 		printf("Value Read MSB:%d LSB:%d Value:%d\n", readbuf[1], readbuf[0], ((readbuf[1]*256)+ readbuf[0]));
     	}
+//}
+goto menu;
 }
 /*Closinf file*/       	
 	close(file_desc);
     	return 0;
 }
+
+
