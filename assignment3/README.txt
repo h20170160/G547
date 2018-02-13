@@ -1,7 +1,7 @@
 Add the module 'mytimer0' using 'make' statement.
 Execute 'ioctl.c' to
                     Read value of counter register
-                 or Enter delay in millisconds
+                 or Enter delay in milliseconds
                  or Exit
                  
 
