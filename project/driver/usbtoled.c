@@ -186,7 +186,7 @@ module_init(led_init);
 module_exit(led_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Sourima Sarkar");
+MODULE_AUTHOR("Poulami Pal");
 MODULE_DESCRIPTION("USB led Registration Driver");
 
 
