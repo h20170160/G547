@@ -1,6 +1,6 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
-#include <linux/usb.h>
+#include <linux/usb.h>// fro usb_contro_msg
 #include <linux/init.h>// macros used to markup functions e.g. __init, __exit
 #include <linux/module.h>// Core header for loading LKMs into the kernel
 #include <linux/kernel.h>// Contains types, macros, functions for the kernel
@@ -9,7 +9,7 @@
 #include <linux/usb.h> //for usb stuffs
 #include <linux/slab.h>
 #include <linux/leds.h> //for led
-#include <linux/delay.h>
+#include <linux/delay.h>//mdelay function
 
 
 
@@ -20,9 +20,15 @@ struct led_classdev led;
      uint8_t brightness;
 
 ////////////////////////////////////////////////////
+/*
+Function: control_led
+	Call back function to be added to the LED structure
+	It send usb_contor_msg to switch ON or OFF LEDs
+	It supports echo commands
+*/
 
 static void control_led(struct led_classdev *led,
-                enum led_brightness brightness)
+                enum led_brightness brightness)	
 {
 	int err,err1;
    if(brightness==0){
@@ -84,24 +90,35 @@ static void control_led(struct led_classdev *led,
 	}
 }
 
-//////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////
+/*
+Function: led_open
+	Call back function to be added to the LED structure
+	It can be used to LED file
+*/
 static int led_open(struct inode *i, struct file *f)
 {
 	printk(KERN_INFO "UsbtoLed device loaded\n");
 	return 0;
 }
 
-//////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////
+/*
+Function: led_close
+	Call back function to be added to the LED structure
+	It can be used to close LED file
+*/
 static int led_close(struct inode *i, struct file *f)
 {
 	printk(KERN_INFO "UsbtoLed device closed\n");
 	return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////
+/*
+Structure: file_operations
+	used to support various activities which can be perofrmed on the LED file
+*/
 static struct file_operations fops =
 {
 	.owner = THIS_MODULE,
