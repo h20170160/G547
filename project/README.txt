@@ -27,3 +27,4 @@ Run LED:
                     echo triggerable > trigger    //makes the LED sensitive to 'triggerable' trigger
                                                   //LEDs blink in a patter on the hardware
                     
+For more reference in trigger: https://elixir.bootlin.com/linux/v4.5/source/drivers/leds/trigger/ledtrig-heartbeat.c
